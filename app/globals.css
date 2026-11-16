@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+/* `dark:` styles follow the data-theme attribute on <html> (set by the theme
+   script / Dark Mode toggle) instead of only the system setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Native controls (date pickers, scrollbars) match the theme too. */
+[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {

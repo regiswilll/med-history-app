@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { routes } from "@/lib/routes";
+import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,7 +30,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      // The theme script sets data-theme before React loads; let the DOM win.
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="flex min-h-full flex-col bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
         <header className="border-b border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
           <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3 sm:px-6">
