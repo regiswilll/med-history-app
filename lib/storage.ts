@@ -154,6 +154,25 @@ export function isCurrent(m: Medication, today = todayISO()) {
   return !m.endDate || m.endDate >= today;
 }
 
+/**
+ * The order medicines appear in on the main list (and in the PDF export):
+ * pinned first, then current, then most recently started, then by name.
+ */
+export function compareForDisplay(today = todayISO()) {
+  return (a: Medication, b: Medication) => {
+    const pa = a.pinned ? 0 : 1;
+    const pb = b.pinned ? 0 : 1;
+    const ca = isCurrent(a, today) ? 0 : 1;
+    const cb = isCurrent(b, today) ? 0 : 1;
+    return (
+      pa - pb ||
+      ca - cb ||
+      b.startDate.localeCompare(a.startDate) ||
+      a.name.localeCompare(b.name)
+    );
+  };
+}
+
 export function todayISO() {
   const d = new Date();
   const tz = d.getTimezoneOffset() * 60_000;

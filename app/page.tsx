@@ -1,5 +1,7 @@
 import Link from "next/link";
+import ExportButton from "@/components/ExportButton";
 import MedicationList from "@/components/MedicationList";
+import ThemeToggle from "@/components/ThemeToggle";
 import { btn } from "@/components/ui";
 import { routes } from "@/lib/routes";
 
@@ -13,9 +15,13 @@ export default function Home() {
             Everything you take now and have taken before.
           </p>
         </div>
-        <Link href={routes.newMedicine} className={btn.primary}>
-          + Add medicine
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link href={routes.newMedicine} className={btn.primary}>
+            + Add medicine
+          </Link>
+          <ExportButton />
+          <ThemeToggle />
+        </div>
       </div>
       <MedicationList />
     </>

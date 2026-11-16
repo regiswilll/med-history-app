@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { formatDate, isCurrent, useMedications, todayISO } from "@/lib/storage";
+import {
+  compareForDisplay,
+  formatDate,
+  isCurrent,
+  useMedications,
+  todayISO,
+} from "@/lib/storage";
 import { routes } from "@/lib/routes";
 import PinButton from "./PinButton";
 import { btn, card, Loading, Message, StatusBadge } from "./ui";
@@ -28,19 +34,7 @@ export default function MedicationList() {
           f.toLowerCase().includes(q),
         );
       })
-      .sort((a, b) => {
-        // pinned first, then current, then most recently started
-        const pa = a.pinned ? 0 : 1;
-        const pb = b.pinned ? 0 : 1;
-        const ca = isCurrent(a, today) ? 0 : 1;
-        const cb = isCurrent(b, today) ? 0 : 1;
-        return (
-          pa - pb ||
-          ca - cb ||
-          b.startDate.localeCompare(a.startDate) ||
-          a.name.localeCompare(b.name)
-        );
-      });
+      .sort(compareForDisplay(today));
   }, [items, query, filter]);
 
   if (items === null) return <Loading />;
