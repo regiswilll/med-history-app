@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
+import { routes } from "@/lib/routes";
 import {
   createMedication,
   StorageError,
@@ -57,13 +58,13 @@ export default function MedicationForm({ existing }: { existing?: Medication }) 
       const saved = existing
         ? updateMedication(existing.id, trimmed)
         : createMedication(trimmed);
-      router.push(`/items/${saved.id}`);
+      router.push(routes.medicine(saved.id));
     } catch (err) {
       setSaveError(err instanceof StorageError ? err.message : "Something went wrong saving.");
     }
   }
 
-  const cancelHref = existing ? `/items/${existing.id}` : "/";
+  const cancelHref = existing ? routes.medicine(existing.id) : routes.home;
 
   return (
     <form onSubmit={onSubmit} noValidate className={`${card} space-y-5 p-4 sm:p-6`}>

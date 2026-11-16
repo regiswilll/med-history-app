@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { formatDate, isCurrent, useMedications, todayISO } from "@/lib/storage";
+import { routes } from "@/lib/routes";
 import PinButton from "./PinButton";
 import { btn, card, Loading, Message, StatusBadge } from "./ui";
 
@@ -50,7 +51,7 @@ export default function MedicationList() {
         icon="💊"
         title="No medicines recorded yet"
         action={
-          <Link href="/items/new" className={btn.primary}>
+          <Link href={routes.newMedicine} className={btn.primary}>
             + Add your first medicine
           </Link>
         }
@@ -136,7 +137,7 @@ export default function MedicationList() {
           {visible.map((m) => (
             <li key={m.id} className="relative">
               <Link
-                href={`/items/${m.id}`}
+                href={routes.medicine(m.id)}
                 className={`${card} block h-full p-4 pb-12 transition hover:border-teal-500 hover:shadow-md focus-visible:outline-2 focus-visible:outline-teal-700 ${
                   m.pinned ? "border-teal-300 ring-1 ring-teal-300 dark:border-teal-700 dark:ring-teal-700" : ""
                 }`}

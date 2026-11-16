@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Medicine History
 
-## Getting Started
+A personal medicine history app. Record the medicines you take and have taken: dosage, how often, why, who prescribed them, start and end dates, and notes. You can add, edit, delete and pin records.
 
-First, run the development server:
+**Live site:** https://regiswilll.github.io/med-history-app/
+
+Your records are stored only in your own browser (localStorage). Nothing is sent to a server, and records don't sync between browsers or devices.
+
+## Pages
+
+| Page | Address |
+|---|---|
+| All medicines | `/` |
+| Add a medicine | `/medicine/new/` |
+| One medicine | `/medicine/?id=001` |
+| Edit a medicine | `/medicine/edit/?id=001` |
+| About | `/about/` |
+
+The site is hosted on GitHub Pages as plain files, with no server. That's why a medicine is picked with `?id=001` and not with an address like `/medicine/001`.
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open the address it prints, usually http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Publishing
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Every push to `main` builds the site and publishes it to GitHub Pages. The workflow is in `.github/workflows/deploy.yml`. To check the production build locally:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build   # writes the static site to ./out
+```

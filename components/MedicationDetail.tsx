@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { routes } from "@/lib/routes";
 import {
   deleteMedication,
   formatDate,
@@ -13,7 +14,8 @@ import {
 import PinButton from "./PinButton";
 import { btn, card, Loading, NotFoundMessage, StatusBadge } from "./ui";
 
-export default function MedicationDetail({ id }: { id: string }) {
+export default function MedicationDetail() {
+  const id = useSearchParams().get("id") ?? "";
   const items = useMedications();
   const router = useRouter();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -34,7 +36,7 @@ export default function MedicationDetail({ id }: { id: string }) {
     try {
       setDeleting(true);
       deleteMedication(id);
-      router.replace("/");
+      router.replace(routes.home);
     } catch (err) {
       setDeleting(false);
       dialogRef.current?.close();
@@ -100,7 +102,7 @@ export default function MedicationDetail({ id }: { id: string }) {
               Delete
             </button>
             <PinButton item={item} variant="full" onError={setError} />
-            <Link href={`/items/${item.id}/edit`} className={btn.primary}>
+            <Link href={routes.editMedicine(item.id)} className={btn.primary}>
               Edit
             </Link>
           </div>

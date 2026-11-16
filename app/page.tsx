@@ -1,6 +1,7 @@
 import Link from "next/link";
 import MedicationList from "@/components/MedicationList";
 import { btn } from "@/components/ui";
+import { routes } from "@/lib/routes";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
             Everything you take now and have taken before.
           </p>
         </div>
-        <Link href="/items/new" className={btn.primary}>
+        <Link href={routes.newMedicine} className={btn.primary}>
           + Add medicine
         </Link>
       </div>
